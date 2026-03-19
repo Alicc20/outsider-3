@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OUTSIDERS: SPACE INVESTMENT</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --white: #f5f0e8;
+    --gray: #333;
+    --mid: #888;
+    --coin: #f5f0e8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─────────────────────────────── */
+  #hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .star-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    background: var(--white);
+    border-radius: 50%;
+    animation: twinkle var(--d) ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  .logo-wrap {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .logo-img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    filter: grayscale(100%) contrast(1.2);
+    animation: pulse-logo 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-logo {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  .edition-tag {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--mid);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(1.2rem, 4vw, 2.2rem);
+    color: var(--white);
+    line-height: 1.6;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    text-shadow: 0 0 30px rgba(245,240,232,0.3);
+  }
+
+  .hero-colon {
+    color: var(--mid);
+  }
+
+  .hero-sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--mid);
+    margin-top: 1.6rem;
+    letter-spacing: 0.12em;
+    position: relative;
+    z-index: 10;
+    font-style: italic;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-hint span {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.45rem;
+    color: var(--mid);
+    letter-spacing: 0.15em;
+  }
+
+  .scroll-hint svg {
+    width: 20px;
+    opacity: 0.5;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── GAME SECTION ──────────────────────── */
+  #game-section {
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid var(--gray);
+    border-bottom: 1px solid var(--gray);
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.4em;
+    color: var(--mid);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  #game-canvas {
+    border: 1px solid var(--gray);
+    display: block;
+    background: #050505;
+    cursor: none;
+    max-width: 100%;
+  }
+
+  .game-score {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    color: var(--mid);
+    margin-top: 1rem;
+    letter-spacing: 0.2em;
+  }
+
+  .game-score span {
+    color: var(--white);
+  }
+
+  .game-hint {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.4rem;
+    color: #444;
+    margin-top: 0.8rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* ─── STORY SECTIONS ────────────────────── */
+  .story-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .edition-block {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--gray);
+    position: relative;
+  }
+
+  .edition-block:last-child {
+    border-bottom: none;
+  }
+
+  .edition-number {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.4em;
+    color: var(--mid);
+    margin-bottom: 1.2rem;
+  }
+
+  .edition-concept {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    color: var(--white);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .edition-desc {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  .edition-tag-inline {
+    display: inline-block;
+    border: 1px solid var(--gray);
+    padding: 0.3rem 0.8rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.4rem;
+    color: #555;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Edition 3 special */
+  .edition-block.current .edition-concept {
+    color: var(--white);
+    text-shadow: 0 0 40px rgba(245,240,232,0.15);
+  }
+
+  .big-quote {
+    font-size: clamp(1.3rem, 3.5vw, 2rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.6;
+    font-style: italic;
+    border-left: 3px solid var(--white);
+    padding-left: 2rem;
+    margin: 3rem 0;
+    letter-spacing: 0.02em;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .stat-number {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--mid);
+    font-weight: 300;
+  }
+
+  /* ─── FOOTER ────────────────────────────── */
+  #footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--gray);
+  }
+
+  .footer-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.8rem, 2vw, 1.1rem);
+    color: var(--white);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-sub {
+    font-size: 0.9rem;
+    color: var(--mid);
+    letter-spacing: 0.15em;
+  }
+
+  /* ─── PIXEL DIVIDER ─────────────────────── */
+  .pixel-div {
+    text-align: center;
+    color: #333;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    margin: 1rem 0;
+  }
+
+  /* ─── SCANLINE OVERLAY ──────────────────── */
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+
+<!-- ─── HERO ─────────────────────────────── -->
+<section id="hero">
+  <div class="star-field" id="stars"></div>
+
+  <div class="logo-wrap">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUkdCWFlaIAAAAAAAAG+iAAA49QAAA5BYWVogAAAAAAAAYmkAALeFAAAY2lhZWiAAAAAAAAAlwAAAD4QAALbPWFlaIAAAAAAAAPbWAAEAAAAA0y1wYXJhAAAAAAAEAAAAAmZmAADyqgAADVkAABPQAAAKWwAAAAAAAAAAbWx1YwAAAAAAAAABAAAADGVuVVMAAAAgAAAAHABHAG8AbwBnAGwAZQAgAEkAbgBjAC4AIAAyADAAMQA2/9sAQwAFAwQEBAMFBAQEBQUFBgcMCAcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCASwBLADASIAAhEBAxEB/8QAHQABAAAHAQEAAAAAAAAAAAAAAAECAwQFBggHCf/EAFIQAAIBAwMCBAMGBAQCBwUCDwECAAMEEQUSIQYxEyJBUQdhcQgUMoGRoSNCscEVUmLRM+EkQ3KCsvDxFjRTkqLCJWNz0hcmNTZERlRkg4STs//EABsBAQACAwEBAAAAAAAAAAAAAAACAwEEBQYH/8QAMxEBAAICAgIBAwMEAQUAAQUAAAECAxEEIRIxBRMiQQYyURQVQmFxFiMzUoGRJDRDU6H/" class="logo-img" alt="Outsiders" onerror="this.style.display='none'"/>
+  </div>
+
+  <p class="edition-tag">Edición 3 · FiduOccidente</p>
+  <h1 class="hero-title">OUTSIDERS<br><span class="hero-colon">:</span><br>SPACE INVESTMENT</h1>
+  <p class="hero-sub">"El país ya tiene la moneda. Aprende a invertirla."</p>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <svg viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="4,12 10,20 16,12" stroke="#f5f0e8" stroke-width="1.5"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ─── GAME ──────────────────────────────── -->
+<section id="game-section">
+  <p class="section-label">INSERT COIN · PLAY</p>
+  <canvas id="game-canvas" width="700" height="380"></canvas>
+  <p class="game-score">MONEDAS: <span id="coin-count">0</span> &nbsp;&nbsp; ROCAS: <span id="rock-count">0</span></p>
+  <p class="game-hint">MUEVE EL MOUSE · CLICK PARA DISPARAR</p>
+</section>
+
+<!-- ─── STORIES ───────────────────────────── -->
+<div class="story-container">
+
+  <!-- Edición 1 -->
+  <div class="edition-block">
+    <p class="edition-number">// EDICIÓN 01</p>
+    <div class="edition-tag-inline">BICHOS RAROS</div>
+    <h2 class="edition-concept">Los bichos<br>raros del<br>sector.</h2>
+    <p class="edition-desc">
+      La primera jornada de innovación abierta del sector fiduciario colombiano. Más de 100 personas. 6 fiduciarias. Una pregunta simple: ¿y si el sector fiduciario también puede verse distinto?
+    </p>
+    <div class="stat-row">
+      <div class="stat-item">
+        <span class="stat-number">100+</span>
+        <span class="stat-label">personas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">6</span>
+        <span class="stat-label">fiduciarias</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">1</span>
+        <span class="stat-label">nueva narrativa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edición 2 -->
+  <div class="edition-block">
+    <p class="edition-number">// EDICIÓN 02</p>
+    <div class="edition-tag-inline">POKÉMON</div>
+    <h2 class="edition-concept">Evoluciona.<br>Captura el<br>futuro.</h2>
+    <p class="edition-desc">
+      El universo creció. El concepto evolucionó hacia la transformación del negocio fiduciario con IA. Como en Pokémon: el sector tenía que evolucionar o quedarse atrás. Y eligió evolucionar.
+    </p>
+  </div>
+
+  <!-- Edición 3 -->
+  <div class="edition-block current">
+    <p class="edition-number">// EDICIÓN 03 · AHORA</p>
+    <div class="edition-tag-inline">SPACE INVESTMENT</div>
+    <h2 class="edition-concept">Ya tienes<br>la moneda.<br>Aprende<br>a invertirla.</h2>
+
+    <div class="big-quote">
+      "El 95% de los colombianos ya tiene acceso a productos financieros digitales. Solo el 4% sabe realmente usarlos."
+    </div>
+
+    <p class="edition-desc">
+      En los arcades clásicos, todos empezaban igual: con una moneda. La diferencia no era el acceso a la máquina — era saber jugar. Colombia insertó la moneda. El problema es que nadie les enseñó a jugar.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <span class="stat-number">95%</span>
+        <span class="stat-label">acceso a productos financieros digitales</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">4%</span>
+        <span class="stat-label">sabe realmente usarlos</span>
+      </div>
+    </div>
+
+    <p class="edition-desc" style="margin-top:2rem;">
+      Space Investment no es sobre atacar enemigos. Es sobre explorar el universo financiero con IA como power-up. ¿Cómo diseñamos educación financiera desde el niño hasta el abuelo con Nequi?
+    </p>
+  </div>
+
+</div>
+
+<!-- ─── FOOTER ────────────────────────────── -->
+<footer id="footer">
+  <p class="footer-title">OUTSIDERS : SPACE INVESTMENT</p>
+  <div class="pixel-div">· · · · · · · · · · · · · · · · · · · ·</div>
+  <p class="footer-sub">FiduOccidente · Innovación Abierta · 2025</p>
+</footer>
+
+<script>
+// ─── STARS ───────────────────────────────────
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `
+    width:${size}px; height:${size}px;
+    top:${Math.random()*100}%;
+    left:${Math.random()*100}%;
+    --d:${(Math.random()*4+2).toFixed(1)}s;
+    animation-delay:${(Math.random()*4).toFixed(1)}s;
+  `;
+  starsContainer.appendChild(s);
+}
+
+// ─── GAME ────────────────────────────────────
+const canvas = document.getElementById('game-canvas');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+
+let mouseX = W/2, mouseY = H/2;
+let coins = 0, rocksDestroyed = 0;
+
+// Ship
+const ship = {
+  x: 80, y: H/2,
+  w: 28, h: 18,
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    // Body
+    ctx.fillStyle = '#f5f0e8';
+    ctx.beginPath();
+    ctx.moveTo(18, 0);
+    ctx.lineTo(-14, -9);
+    ctx.lineTo(-8, 0);
+    ctx.lineTo(-14, 9);
+    ctx.closePath();
+    ctx.fill();
+    // Wing detail
+    ctx.fillStyle = '#888';
+    ctx.beginPath();
+    ctx.moveTo(-8, 0);
+    ctx.lineTo(-14, -9);
+    ctx.lineTo(-14, 9);
+    ctx.closePath();
+    ctx.fill();
+    // Cockpit
+    ctx.fillStyle = '#333';
+    ctx.beginPath();
+    ctx.arc(4, 0, 4, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  }
+};
+
+// Bullets
+let bullets = [];
+
+// Coins
+let coinObjs = [];
+function spawnCoin() {
+  coinObjs.push({
+    x: W + 20,
+    y: Math.random() * (H - 80) + 40,
+    r: 8,
+    speed: 1.5 + Math.random() * 1.5,
+    angle: 0
+  });
+}
+
+// Rocks (asteroids)
+let rockObjs = [];
+function spawnRock() {
+  const size = 18 + Math.random() * 24;
+  rockObjs.push({
+    x: W + size,
+    y: Math.random() * (H - size*2) + size,
+    size,
+    speed: 1 + Math.random() * 1.2,
+    rot: 0,
+    rotSpeed: (Math.random() - 0.5) * 0.04,
+    points: Array.from({length:8}, (_,i) => {
+      const a = (i / 8) * Math.PI * 2;
+      const r = size * (0.7 + Math.random() * 0.3);
+      return { x: Math.cos(a)*r, y: Math.sin(a)*r };
+    }),
+    dead: false,
+    deathTimer: 0
+  });
+}
+
+// Particles
+let particles = [];
+function explode(x, y, n=12, color='#f5f0e8') {
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const spd = 1 + Math.random() * 3;
+    particles.push({
+      x, y,
+      vx: Math.cos(a) * spd,
+      vy: Math.sin(a) * spd,
+      life: 1,
+      color,
+      size: 1.5 + Math.random() * 2
+    });
+  }
+}
+
+// Stars in canvas
+const canvasStars = Array.from({length:60}, () => ({
+  x: Math.random()*W,
+  y: Math.random()*H,
+  s: Math.random()*1.5+0.3,
+  sp: 0.2 + Math.random()*0.4
+}));
+
+let lastCoin = 0, lastRock = 0;
+let frame = 0;
+
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  mouseX = e.clientX - r.left;
+  mouseY = e.clientY - r.top;
+});
+
+canvas.addEventListener('click', () => {
+  bullets.push({ x: ship.x + 18, y: ship.y, speed: 9 });
+});
+
+function drawPixelCoin(x, y, r, angle) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  // Coin glow
+  const grad = ctx.createRadialGradient(0, 0, 1, 0, 0, r);
+  grad.addColorStop(0, 'rgba(245,240,232,0.9)');
+  grad.addColorStop(1, 'rgba(245,240,232,0.1)');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI*2);
+  ctx.fill();
+  // $ symbol
+  ctx.fillStyle = '#0a0a0a';
+  ctx.font = `bold ${Math.round(r*0.9)}px monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('$', 0, 0);
+  ctx.restore();
+}
+
+function drawRock(rock) {
+  ctx.save();
+  ctx.translate(rock.x, rock.y);
+  ctx.rotate(rock.rot);
+  ctx.fillStyle = rock.dead ? '#333' : '#888';
+  ctx.strokeStyle = '#f5f0e8';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  const pts = rock.points;
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
+}
+
+function dist(a, b) {
+  return Math.sqrt((a.x-b.x)**2 + (a.y-b.y)**2);
+}
+
+function gameLoop(ts) {
+  frame++;
+  ctx.fillStyle = '#050505';
+  ctx.fillRect(0, 0, W, H);
+
+  // Scrolling stars
+  canvasStars.forEach(s => {
+    s.x -= s.sp;
+    if (s.x < 0) { s.x = W; s.y = Math.random()*H; }
+    ctx.fillStyle = `rgba(245,240,232,${0.2+s.s*0.3})`;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.s, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  // Spawn
+  if (ts - lastCoin > 1400) { spawnCoin(); lastCoin = ts; }
+  if (ts - lastRock > 2200) { spawnRock(); lastRock = ts; }
+
+  // Move ship toward mouse (smooth)
+  const tx = mouseX, ty = mouseY;
+  ship.x += (tx - ship.x) * 0.12;
+  ship.y += (ty - ship.y) * 0.12;
+  ship.x = Math.max(20, Math.min(W-20, ship.x));
+  ship.y = Math.max(20, Math.min(H-20, ship.y));
+
+  // Bullets
+  bullets = bullets.filter(b => b.x < W + 10);
+  bullets.forEach(b => {
+    b.x += b.speed;
+    ctx.fillStyle = '#f5f0e8';
+    ctx.fillRect(b.x, b.y-1.5, 10, 3);
+  });
+
+  // Coins
+  coinObjs = coinObjs.filter(c => c.x > -20);
+  coinObjs.forEach(c => {
+    c.x -= c.speed;
+    c.angle += 0.03;
+    // Collect
+    if (dist(ship, c) < ship.w/2 + c.r) {
+      explode(c.x, c.y, 8, '#f5f0e8');
+      coins++;
+      document.getElementById('coin-count').textContent = coins;
+      c.x = -100;
+    } else {
+      drawPixelCoin(c.x, c.y, c.r, c.angle);
+    }
+  });
+
+  // Rocks
+  rockObjs = rockObjs.filter(r => r.x > -100);
+  rockObjs.forEach(rock => {
+    if (!rock.dead) {
+      rock.x -= rock.speed;
+      rock.rot += rock.rotSpeed;
+    } else {
+      rock.deathTimer++;
+      if (rock.deathTimer > 25) rock.x = -200;
+    }
+    // Bullet hit
+    bullets.forEach(b => {
+      if (!rock.dead && dist({x:b.x,y:b.y}, rock) < rock.size) {
+        rock.dead = true;
+        explode(rock.x, rock.y, 16, '#888');
+        rocksDestroyed++;
+        document.getElementById('rock-count').textContent = rocksDestroyed;
+        b.x = W + 100;
+      }
+    });
+    drawRock(rock);
+  });
+
+  // Particles
+  particles = particles.filter(p => p.life > 0);
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vx *= 0.95;
+    p.vy *= 0.95;
+    p.life -= 0.04;
+    ctx.globalAlpha = p.life;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+
+  // Thruster
+  for (let i = 0; i < 3; i++) {
+    const ox = -14 + (Math.random()-0.5)*4;
+    const oy = (Math.random()-0.5)*8;
+    const gl = Math.random() * 18 + 6;
+    ctx.globalAlpha = 0.6;
+    ctx.fillStyle = '#f5f0e8';
+    ctx.fillRect(ship.x + ox - gl, ship.y + oy - 1, gl, 2);
+    ctx.globalAlpha = 1;
+  }
+
+  ship.draw();
+
+  // Pixel vignette
+  const vgr = ctx.createRadialGradient(W/2, H/2, H*0.3, W/2, H/2, H*0.9);
+  vgr.addColorStop(0, 'transparent');
+  vgr.addColorStop(1, 'rgba(5,5,5,0.45)');
+  ctx.fillStyle = vgr;
+  ctx.fillRect(0, 0, W, H);
+
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
+</script>
+</body>
+</html>
